@@ -20,7 +20,7 @@ var storage = multer.diskStorage({
 router.post('/addmovie',auth.auth_check,movie.addmovie);
 router.put('/updatemovie/:id',auth.auth_check,movie.updatemovie);
 router.delete('/deletemovie/:id',auth.auth_check,movie.deletemovie);
-router.get('/movies',auth.auth_check,movie.getallmovie);
-router.get('/movie/:id',auth.auth_check,movie.getonemovie);
+router.get('/movies',movie.getallmovie);
+router.get('/movie/:id',movie.getonemovie);
 
 module.exports = router;
