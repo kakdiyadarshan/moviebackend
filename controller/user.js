@@ -17,6 +17,7 @@ var transporter = nodemailer.createTransport({
 exports.adduser = async (req, res) => {
   const data = await user.create(req.body);
 
+  
   res.status(200).json({
     status: 200,
     message: "User Successfully..!",
