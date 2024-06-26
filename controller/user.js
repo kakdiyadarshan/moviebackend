@@ -25,32 +25,24 @@ exports.adduser = async (req, res) => {
 };
 
 exports.userlogin = async (req, res) => {
-  const login_status = await storage.getItem("userlogin");
-  if (login_status == undefined) {
-    var data = await user.find({ email: req.body.email });
-    if (data.length == 1) {
-      var token = await jwt.sign({ id: data[0].id }, "user_token");
-      await storage.setItem("userlogin", data[0].id),
-        res.status(200).json({
-          status: 200,  
-          message: "User Login Successfully..!",
-          token,
-          data,
-        });
-    } else {
-      res.status(201).json({
-        status: 201,
-        message: "Check Email & Password",
+  var data = await user.find({ email: req.body.email });
+  if (data.length == 1) {
+    var token = await jwt.sign({ id: data[0].id }, "user_token");
+    await storage.setItem("userlogin", data[0].id),
+      res.status(200).json({
+        status: 200,
+        message: "User Login Successfully..!",
+        token,
+        data,
       });
-    }
   } else {
     res.status(201).json({
       status: 201,
-
-      message: "User Already Login",
+      message: "Check Email & Password",
     });
   }
-};
+}
+
 
 exports.get = async (req, res) => {
   try {
@@ -146,7 +138,7 @@ exports.confirmseat = async (req, res) => {
       status: 200,
       message: "Seat confirmed successfully",
       data: {
-        userData:userData,
+        userData: userData,
         seats: selectedSeats,
         totalPrice,
       },
